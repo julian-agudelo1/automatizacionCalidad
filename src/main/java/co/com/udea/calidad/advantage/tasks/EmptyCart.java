@@ -1,0 +1,27 @@
+package co.com.udea.calidad.advantage.tasks;
+
+import co.com.udea.calidad.advantage.userinterfaces.CartPage;
+import net.serenitybdd.screenplay.Performable;
+import net.serenitybdd.screenplay.Task;
+import net.serenitybdd.screenplay.actions.Click;
+import net.serenitybdd.screenplay.waits.WaitUntil;
+
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
+
+public class EmptyCart {
+
+    private EmptyCart() {
+    }
+
+    public static Performable beforeStarting() {
+        return Task.where("{0} vacía el carrito antes del escenario",
+                actor -> {
+                    actor.attemptsTo(OpenCart.page());
+                    while (!CartPage.REMOVE_FIRST_ITEM.resolveAllFor(actor).isEmpty()) {
+                        actor.attemptsTo(Click.on(CartPage.REMOVE_FIRST_ITEM));
+                    }
+                    actor.attemptsTo(WaitUntil.the(CartPage.EMPTY_CART_MESSAGE, isVisible())
+                            .forNoMoreThan(10).seconds());
+                });
+    }
+}
