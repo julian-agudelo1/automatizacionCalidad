@@ -5,12 +5,12 @@ Feature: Inicio de sesión
 
   @CP04 @autenticacion @positivo
   Scenario: CP04 - Iniciar sesión con credenciales válidas
-    Given que existe una cuenta de prueba para iniciar sesión
+    Given que el usuario tiene credenciales de una cuenta registrada
     When inicia sesión con credenciales válidas
     Then el usuario queda autenticado con su cuenta
 
   @CP05 @autenticacion @negativo
   Scenario: CP05 - Rechazar una contraseña incorrecta
-    Given que existe una cuenta de prueba para iniciar sesión
+    Given que el usuario tiene credenciales de una cuenta registrada
     When inicia sesión con una contraseña incorrecta
     Then el inicio de sesión es rechazado

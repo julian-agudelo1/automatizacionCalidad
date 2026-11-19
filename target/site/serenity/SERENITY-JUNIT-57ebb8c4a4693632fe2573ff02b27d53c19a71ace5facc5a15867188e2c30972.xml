@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><testsuite errors="0" failures="2" name="Pago del pedido" skipped="0" tests="2" time="3.74" timestamp="2026-11-18 05:55:23"><testcase name="CP11 - Completar la compra con MasterCredit de prueba"><failure message="&#10;Expected: an element that is visible&#10;     but: no matching element found by [continuar desde los datos de envío located with: css: #orderPayment button.nextBtn]" type="java.lang.AssertionError">
+Expected: an element that is visible
+     but: no matching element found by [continuar desde los datos de envío located with: css: #orderPayment button.nextBtn]</failure><system-err>
+Expected: an element that is visible
+     but: no matching element found by [continuar desde los datos de envío located with: css: #orderPayment button.nextBtn]&#13;
+co.com.udea.calidad.advantage.stepdefinitions.CheckoutStepDefinitions.submitDemoPayment(CheckoutStepDefinitions.java:38)&#13;
+worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)&#13;
+worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)&#13;
+</system-err></testcase><testcase name="CP12 - Impedir el pago si faltan datos obligatorios"><failure message="&#10;Expected: an element that is visible&#10;     but: no matching element found by [continuar desde los datos de envío located with: css: #orderPayment button.nextBtn]" type="java.lang.AssertionError">
+Expected: an element that is visible
+     but: no matching element found by [continuar desde los datos de envío located with: css: #orderPayment button.nextBtn]</failure><system-err>
+Expected: an element that is visible
+     but: no matching element found by [continuar desde los datos de envío located with: css: #orderPayment button.nextBtn]&#13;
+co.com.udea.calidad.advantage.stepdefinitions.CheckoutStepDefinitions.attemptPaymentWithMissingFields(CheckoutStepDefinitions.java:53)&#13;
+worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)&#13;
+worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)&#13;
+</system-err></testcase></testsuite>

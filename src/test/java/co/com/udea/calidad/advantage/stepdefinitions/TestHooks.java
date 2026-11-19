@@ -21,6 +21,19 @@ public class TestHooks {
         actor.remember("username", "qa" + uniqueId);
         actor.remember("email", "qa" + uniqueId + "@example.com");
         actor.remember("password", "Test2026");
+
+        String registeredUsername = System.getenv("ADVANTAGE_TEST_USERNAME");
+        String registeredPassword = System.getenv("ADVANTAGE_TEST_PASSWORD");
+        boolean hasUsername = registeredUsername != null && !registeredUsername.isBlank();
+        boolean hasPassword = registeredPassword != null && !registeredPassword.isBlank();
+        if (hasUsername != hasPassword) {
+            throw new IllegalStateException(
+                    "Define ADVANTAGE_TEST_USERNAME y ADVANTAGE_TEST_PASSWORD juntos.");
+        }
+        if (hasUsername) {
+            actor.remember("registeredUsername", registeredUsername.trim());
+            actor.remember("registeredPassword", registeredPassword);
+        }
     }
 
     @After

@@ -4,11 +4,11 @@ import co.com.udea.calidad.advantage.questions.PaymentBlocked;
 import co.com.udea.calidad.advantage.tasks.AddProductToCart;
 import co.com.udea.calidad.advantage.tasks.ContinueToPayment;
 import co.com.udea.calidad.advantage.tasks.EmptyCart;
+import co.com.udea.calidad.advantage.tasks.LoginUser;
 import co.com.udea.calidad.advantage.tasks.PayWithTestCard;
-import co.com.udea.calidad.advantage.tasks.RegisterUser;
 import co.com.udea.calidad.advantage.tasks.StartCheckout;
 import co.com.udea.calidad.advantage.userinterfaces.CheckoutPage;
-import co.com.udea.calidad.advantage.userinterfaces.RegistrationPage;
+import co.com.udea.calidad.advantage.userinterfaces.LoginPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -17,7 +17,7 @@ import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 
-import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.containsText;
 import static org.junit.Assert.assertTrue;
 
 public class CheckoutStepDefinitions {
@@ -27,13 +27,9 @@ public class CheckoutStepDefinitions {
         actor().attemptsTo(
                 Open.url("https://www.advantageonlineshopping.com/"),
                 EmptyCart.beforeStarting(),
-                Open.url("https://www.advantageonlineshopping.com/#/register"),
-                WaitUntil.the(RegistrationPage.REGISTER_BUTTON, isVisible())
+                LoginUser.withCredentials(registeredUsername(), registeredPassword()),
+                WaitUntil.the(LoginPage.USER_MENU, containsText(registeredUsername()))
                         .forNoMoreThan(20).seconds(),
-                RegisterUser.withData(
-                        actor().recall("username"),
-                        actor().recall("email"),
-                        actor().recall("password")),
                 AddProductToCart.withId("speakers", "20", 1));
     }
 
@@ -68,5 +64,25 @@ public class CheckoutStepDefinitions {
 
     private Actor actor() {
         return OnStage.theActorInTheSpotlight();
+    }
+
+    private String registeredUsername() {
+        return requiredRegisteredCredential(
+                "registeredUsername", "ADVANTAGE_TEST_USERNAME");
+    }
+
+    private String registeredPassword() {
+        return requiredRegisteredCredential(
+                "registeredPassword", "ADVANTAGE_TEST_PASSWORD");
+    }
+
+    private String requiredRegisteredCredential(String key, String environmentVariable) {
+        String credential = actor().recall(key);
+        if (credential == null || credential.isBlank()) {
+            throw new IllegalStateException(
+                    "Configura la variable de entorno " + environmentVariable
+                            + " con una cuenta de prueba ya registrada.");
+        }
+        return credential;
     }
 }

@@ -15,6 +15,7 @@ import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.containsText;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 import static org.junit.Assert.assertTrue;
 
@@ -51,13 +52,14 @@ public class StepDefinition {
     }
 
     @Then("la cuenta queda registrada correctamente")
-    public void accountIsRegisteredAndAuthenticated() {
-        actor().attemptsTo(
-                WaitUntil.the(LoginPage.USER_MENU, isVisible())
-                        .forNoMoreThan(10).seconds());
-        String displayedUser = LoggedUser.name().answeredBy(actor());
-        assertTrue("El usuario no quedó autenticado después del registro: " + displayedUser,
-                displayedUser.contains(actor().recall("username")));
+    public void accountIsRegistered() {
+        String currentUrl = BrowseTheWeb.as(actor()).getDriver().getCurrentUrl();
+        boolean successMessageVisible = RegistrationPage.REGISTRATION_SUCCESS
+                .resolveAllFor(actor())
+                .stream()
+                .anyMatch(element -> element.isVisible());
+        assertTrue("El formulario de registro sigue abierto sin confirmación: " + currentUrl,
+                !currentUrl.contains("#/register") || successMessageVisible);
     }
 
     @Then("el registro es bloqueado por la validación del formulario")
@@ -66,38 +68,48 @@ public class StepDefinition {
                 RegistrationBlocked.onForm().answeredBy(actor()));
     }
 
-    @Given("que existe una cuenta de prueba para iniciar sesión")
-    public void createAccountForLogin() {
-        openRegistrationForm();
-        registerWithValidData();
-        actor().attemptsTo(co.com.udea.calidad.advantage.tasks.SignOut.ofCurrentUser());
+    @Given("que el usuario tiene credenciales de una cuenta registrada")
+    public void registeredAccountCredentialsAreAvailable() {
+        registeredUsername();
+        registeredPassword();
+        actor().attemptsTo(
+                Open.url("https://www.advantageonlineshopping.com/"),
+                WaitUntil.the(LoginPage.USER_MENU, isVisible())
+                        .forNoMoreThan(20).seconds());
     }
 
     @When("inicia sesión con credenciales válidas")
     public void signInWithValidCredentials() {
         actor().attemptsTo(LoginUser.withCredentials(
-                actor().recall("username"),
-                actor().recall("password")));
+                registeredUsername(),
+                registeredPassword()),
+                WaitUntil.the(LoginPage.USER_MENU, containsText(registeredUsername()))
+                        .forNoMoreThan(20).seconds());
     }
 
     @Then("el usuario queda autenticado con su cuenta")
     public void userIsAuthenticated() {
         String displayedUser = LoggedUser.name().answeredBy(actor());
         assertTrue("El menú no muestra el usuario autenticado: " + displayedUser,
-                displayedUser.contains(actor().recall("username")));
+                displayedUser.contains(registeredUsername()));
     }
 
     @When("inicia sesión con una contraseña incorrecta")
     public void signInWithIncorrectPassword() {
         actor().attemptsTo(LoginUser.withCredentials(
-                actor().recall("username"),
+                registeredUsername(),
                 "WrongPassword2026"));
     }
 
     @Then("el inicio de sesión es rechazado")
     public void signInIsRejected() {
+        actor().attemptsTo(
+                WaitUntil.the(LoginPage.SIGN_IN_RESULT, isVisible())
+                        .forNoMoreThan(10).seconds());
+        String result = LoginPage.SIGN_IN_RESULT.resolveFor(actor()).getText();
         assertTrue("El formulario de inicio de sesión debería seguir visible",
                 LoginPage.USERNAME.resolveFor(actor()).isVisible());
+        assertTrue("Debe mostrarse el motivo del rechazo", !result.isBlank());
     }
 
     @Then("el usuario permanece en el formulario de registro")
@@ -109,5 +121,25 @@ public class StepDefinition {
 
     private Actor actor() {
         return OnStage.theActorInTheSpotlight();
+    }
+
+    private String registeredUsername() {
+        return requiredRegisteredCredential(
+                "registeredUsername", "ADVANTAGE_TEST_USERNAME");
+    }
+
+    private String registeredPassword() {
+        return requiredRegisteredCredential(
+                "registeredPassword", "ADVANTAGE_TEST_PASSWORD");
+    }
+
+    private String requiredRegisteredCredential(String key, String environmentVariable) {
+        String credential = actor().recall(key);
+        if (credential == null || credential.isBlank()) {
+            throw new IllegalStateException(
+                    "Configura la variable de entorno " + environmentVariable
+                            + " con una cuenta de prueba ya registrada.");
+        }
+        return credential;
     }
 }

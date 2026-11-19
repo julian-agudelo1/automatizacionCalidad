@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><testsuite errors="0" failures="1" name="Carrito de compras" skipped="0" tests="2" time="5.35" timestamp="2026-11-18 02:51:01"><testcase name="CP08 - Modificar la cantidad de un producto"/><testcase name="CP09 - Validar el subtotal y el total"><failure message="El subtotal debe coincidir con $539.98" type="java.lang.AssertionError">El subtotal debe coincidir con $539.98</failure><system-err>El subtotal debe coincidir con $539.98&#13;
-co.com.udea.calidad.advantage.stepdefinitions.ShoppingStepDefinitions.subtotalAndTotalAre(ShoppingStepDefinitions.java:92)&#13;
-✽.el subtotal de los productos y el total son "$539.98"(file:///C:/Proyectos/AdvantageShopping/src/test/resources/features/carrito_compras.feature:28)&#13;
-</system-err></testcase></testsuite>

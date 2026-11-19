@@ -2,7 +2,8 @@
 package co.com.udea.calidad.advantage.tasks;
 
 import co.com.udea.calidad.advantage.userinterfaces.RegistrationPage;
-import co.com.udea.calidad.advantage.userinterfaces.LoginPage;
+
+import java.time.Duration;
 
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Task;
@@ -10,9 +11,10 @@ import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Enter;
 import net.serenitybdd.screenplay.actions.SelectFromOptions;
 import net.serenitybdd.screenplay.waits.WaitUntil;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isEnabled;
-import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 
 public class RegisterUser {
 
@@ -27,8 +29,13 @@ public class RegisterUser {
                 WaitUntil.the(RegistrationPage.REGISTER_BUTTON, isEnabled())
                         .forNoMoreThan(10).seconds(),
                 Click.on(RegistrationPage.REGISTER_BUTTON),
-                WaitUntil.the(LoginPage.USER_MENU, isVisible())
-                        .forNoMoreThan(20).seconds());
+                WaitUntil.the(driver -> {
+                    boolean registrationPageClosed = !driver.getCurrentUrl().contains("#/register");
+                    boolean successMessageVisible = driver.findElements(By.id("registerSuccessCover"))
+                            .stream()
+                            .anyMatch(WebElement::isDisplayed);
+                    return registrationPageClosed || successMessageVisible;
+                }).forNoMoreThan(Duration.ofSeconds(20)));
     }
 
     public static Performable fillForm(

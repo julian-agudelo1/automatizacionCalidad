@@ -24,5 +24,8 @@
 [Test worker] INFO  - Test Suite Started: Pago del pedido
 [Test worker] INFO  - Test Suite Started: Registro de usuarios
 [Test worker] INFO  - Test Suite Started: Carrito de compras
+[Test worker] INFO  - Test Suite Started: Inicio de sesión
+[Test worker] INFO  - Test Suite Started: Pago del pedido
+[Test worker] INFO  - Test Suite Started: Registro de usuarios
 ]]></system-err>
 </testsuite>
