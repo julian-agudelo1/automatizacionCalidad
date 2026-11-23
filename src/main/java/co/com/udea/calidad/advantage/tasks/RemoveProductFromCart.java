@@ -14,10 +14,9 @@ public class RemoveProductFromCart {
     }
 
     public static Performable firstItem() {
-        return Task.where("{0} elimina el producto del carrito",
-                OpenCart.page(),
+        return Task.where("{0} removes the product from the cart",
                 Click.on(CartPage.REMOVE_FIRST_ITEM),
                 WaitUntil.the(CartPage.CART_TITLE, isVisible())
-                        .forNoMoreThan(15).seconds());
+                        .forNoMoreThan(60).seconds());
     }
 }

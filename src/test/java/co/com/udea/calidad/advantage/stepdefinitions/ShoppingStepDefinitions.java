@@ -1,23 +1,27 @@
 package co.com.udea.calidad.advantage.stepdefinitions;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Map;
+
+import co.com.udea.calidad.advantage.interactions.WaitForLoader;
 import co.com.udea.calidad.advantage.questions.CartContents;
 import co.com.udea.calidad.advantage.tasks.AddProductToCart;
 import co.com.udea.calidad.advantage.tasks.EmptyCart;
 import co.com.udea.calidad.advantage.tasks.OpenCart;
 import co.com.udea.calidad.advantage.tasks.RemoveProductFromCart;
 import co.com.udea.calidad.advantage.tasks.UpdateCartQuantity;
-import co.com.udea.calidad.advantage.userinterfaces.CatalogPage;
 import co.com.udea.calidad.advantage.userinterfaces.CartPage;
+import co.com.udea.calidad.advantage.userinterfaces.CatalogPage;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.screenplay.Actor;
-import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actions.Open;
+import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.questions.Text;
 import net.serenitybdd.screenplay.waits.WaitUntil;
-
-import java.util.Locale;
 
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 import static org.junit.Assert.assertEquals;
@@ -25,89 +29,91 @@ import static org.junit.Assert.assertTrue;
 
 public class ShoppingStepDefinitions {
 
-    private static final String SPEAKER = "BOSE SOUNDLINK BLUETOOTH SPEAKER III";
-    private static final String TABLET = "HP ELITEPAD 1000 G2 TABLET";
+    private static final String STORE_URL = "https://www.advantageonlineshopping.com/";
 
-    @Given("que el usuario abre el catálogo de productos")
+    @Given("the user opens the product catalog")
     public void openCatalog() {
         actor().attemptsTo(
-                Open.url("https://www.advantageonlineshopping.com/"),
+                Open.url(STORE_URL),
+                OpenCart.page(),
                 EmptyCart.beforeStarting(),
-                Open.url("https://www.advantageonlineshopping.com/"),
-                WaitUntil.the(CatalogPage.category("speakers"), isVisible())
-                        .forNoMoreThan(20).seconds());
+                Open.url(STORE_URL),
+                WaitForLoader.toFinish(),
+                WaitUntil.the(CatalogPage.HOME_LOGO, isVisible())
+                        .forNoMoreThan(60).seconds());
     }
 
-    @When("agrega un producto al carrito")
-    public void addOneProduct() {
-        actor().attemptsTo(
-                AddProductToCart.withId("speakers", "20", 1),
-                OpenCart.page());
+    @When("the user adds the following products to the cart")
+    public void addProducts(DataTable products) {
+        for (Map<String, String> row : products.asMaps(String.class, String.class)) {
+            actor().attemptsTo(AddProductToCart.withId(
+                    row.get("category"),
+                    row.get("productId"),
+                    Integer.parseInt(row.get("quantity"))));
+        }
     }
 
-    @Then("el producto aparece en el carrito")
-    public void productAppearsInCart() {
-        assertTrue(CartContents.summary().answeredBy(actor()).contains(SPEAKER));
+    @When("the user opens the cart")
+    public void openCart() {
+        actor().attemptsTo(OpenCart.page());
     }
 
-    @When("agrega productos de dos categorías diferentes")
-    public void addProductsFromDifferentCategories() {
-        actor().attemptsTo(
-                AddProductToCart.withId("tablets", "16", 1),
-                AddProductToCart.withId("speakers", "20", 1),
-                OpenCart.page());
-    }
-
-    @Then("ambos productos aparecen en el carrito")
-    public void bothProductsAppearInCart() {
+    @Then("the following products appear in the cart")
+    public void productsAppearInCart(DataTable products) {
         String cart = CartContents.summary().answeredBy(actor());
-        assertTrue(cart.contains(TABLET));
-        assertTrue(cart.contains(SPEAKER));
+        for (Map<String, String> row : products.asMaps(String.class, String.class)) {
+            assertTrue("The cart should contain " + row.get("productName"),
+                    cart.contains(row.get("productName")));
+        }
     }
 
-    @When("modifica la cantidad del producto a {int}")
-    public void updateProductQuantity(int quantity) {
+    @When("the user updates the product quantity to the following value")
+    public void updateProductQuantity(DataTable data) {
+        int quantity = Integer.parseInt(
+                data.asMaps(String.class, String.class).get(0).get("quantity"));
         actor().attemptsTo(
-                AddProductToCart.withId("speakers", "20", 1),
-                UpdateCartQuantity.to(quantity));
-    }
-
-    @Then("el carrito refleja la cantidad {int} y su importe")
-    public void cartReflectsQuantityAndAmount(int quantity) {
-        String displayedQuantity = Text.of(CartPage.ITEM_QUANTITY).answeredBy(actor()).trim();
-        String displayedPrice = Text.of(CartPage.ITEM_PRICE).answeredBy(actor()).replaceAll("\\s+", " ").trim();
-        String expectedPrice = "$" + String.format(Locale.US, "%.2f", 269.99 * quantity);
-        assertEquals(Integer.toString(quantity), displayedQuantity);
-        assertTrue(displayedPrice.contains(expectedPrice));
-    }
-
-    @When("agrega dos unidades del parlante")
-    public void addTwoSpeakers() {
-        actor().attemptsTo(
-                AddProductToCart.withId("speakers", "20", 2),
+                OpenCart.page(),
+                UpdateCartQuantity.to(quantity),
                 OpenCart.page());
     }
 
-    @Then("el subtotal de los productos y el total son {string}")
-    public void subtotalAndTotalAre(String expectedAmount) {
+    @Then("the cart reflects the following quantity and amount")
+    public void cartReflectsQuantityAndAmount(DataTable data) {
+        Map<String, String> row = data.asMaps(String.class, String.class).get(0);
+        int quantity = Integer.parseInt(row.get("quantity"));
+        BigDecimal expectedAmount = new BigDecimal(row.get("unitPrice"))
+                .multiply(BigDecimal.valueOf(quantity))
+                .setScale(2, RoundingMode.HALF_UP);
+        String expectedPrice = "$" + expectedAmount.toPlainString();
+        String displayedQuantity = Text.of(CartPage.ITEM_QUANTITY).answeredBy(actor()).trim();
+        String displayedPrice = Text.of(CartPage.ITEM_PRICE).answeredBy(actor())
+                .replaceAll("\\s+", " ").trim();
+        assertEquals(Integer.toString(quantity), displayedQuantity);
+        assertTrue("Expected " + expectedPrice + " but was " + displayedPrice,
+                displayedPrice.contains(expectedPrice));
+    }
+
+    @Then("the subtotal and the total are the following")
+    public void subtotalAndTotalAre(DataTable data) {
+        String expectedAmount = data.asMaps(String.class, String.class).get(0).get("amount");
         String itemPrice = Text.of(CartPage.ITEM_PRICE).answeredBy(actor());
         String total = Text.of(CartPage.TOTAL_ROW).answeredBy(actor());
-        assertTrue("El subtotal debe coincidir con " + expectedAmount + ", pero fue " + itemPrice,
+        assertTrue("The subtotal must match " + expectedAmount + " but was " + itemPrice,
                 itemPrice.contains(expectedAmount));
-        assertTrue("El total debe coincidir con " + expectedAmount + ", pero fue " + total,
+        assertTrue("The total must match " + expectedAmount + " but was " + total,
                 total.contains(expectedAmount));
     }
 
-    @When("elimina el producto del carrito")
-    public void removeProduct() {
+    @When("the user removes the first product from the cart")
+    public void removeFirstProduct() {
         actor().attemptsTo(
-                AddProductToCart.withId("speakers", "20", 1),
+                OpenCart.page(),
                 RemoveProductFromCart.firstItem());
     }
 
-    @Then("el carrito queda vacío")
+    @Then("the cart is empty")
     public void cartIsEmpty() {
-        assertTrue("Debe mostrarse el mensaje de carrito vacío",
+        assertTrue("The empty cart message must be displayed",
                 CartPage.EMPTY_CART_MESSAGE.resolveFor(actor()).isVisible());
     }
 

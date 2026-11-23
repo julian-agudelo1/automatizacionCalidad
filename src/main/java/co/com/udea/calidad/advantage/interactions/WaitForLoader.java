@@ -1,20 +1,22 @@
 package co.com.udea.calidad.advantage.interactions;
 
 import co.com.udea.calidad.advantage.userinterfaces.UserInterface;
-import net.serenitybdd.screenplay.Performable;
-import net.serenitybdd.screenplay.Task;
+import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 
+import static net.serenitybdd.screenplay.Tasks.instrumented;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isNotVisible;
 
-public class WaitForLoader {
+public class WaitForLoader implements Interaction {
 
-    private WaitForLoader() {
+    public static WaitForLoader toFinish() {
+        return instrumented(WaitForLoader.class);
     }
 
-    public static Performable toFinish() {
-        return Task.where("{0} espera a que la página termine de cargar",
-                WaitUntil.the(UserInterface.LOADER, isNotVisible())
-                        .forNoMoreThan(60).seconds());
+    @Override
+    public <T extends Actor> void performAs(T actor) {
+        actor.attemptsTo(WaitUntil.the(UserInterface.LOADER, isNotVisible())
+                .forNoMoreThan(60).seconds());
     }
 }

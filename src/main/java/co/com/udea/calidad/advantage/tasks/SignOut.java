@@ -14,7 +14,7 @@ public class SignOut {
     }
 
     public static Performable ofCurrentUser() {
-        return Task.where("{0} cierra sesión",
+        return Task.where("{0} signs out",
                 Click.on(LoginPage.USER_MENU),
                 WaitUntil.the(LoginPage.SIGN_OUT_OPTION, isVisible())
                         .forNoMoreThan(10).seconds(),

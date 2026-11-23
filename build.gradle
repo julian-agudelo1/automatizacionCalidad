@@ -37,13 +37,12 @@ dependencies {
     implementation "net.serenity-bdd:serenity-junit:$rootProject.ext.serenityVersion"
     implementation "net.serenity-bdd:serenity-screenplay:$rootProject.ext.serenityVersion"
     implementation "net.serenity-bdd:serenity-cucumber:$rootProject.ext.serenityCucumberVersion"
-    implementation 'org.slf4j:slf4j-simple:2.0.5'
     implementation "net.serenity-bdd:serenity-screenplay-webdriver:$rootProject.ext.serenityWebVersion"
+    implementation 'org.slf4j:slf4j-simple:2.0.5'
 
     //Test compilation
     testImplementation "junit:junit:$rootProject.ext.junit"
     testImplementation "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrest"
-    implementation 'org.slf4j:slf4j-simple:2.0.5'
     testImplementation("io.github.bonigarcia:webdrivermanager:5.4.1")
 
     //Lombok dependencies
@@ -53,7 +52,6 @@ dependencies {
 
     //Additional library
     implementation group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.12.0'
-
 }
 
 tasks.named('test') {
@@ -61,5 +59,11 @@ tasks.named('test') {
     if (cucumberTagFilter != null) {
         systemProperty 'cucumber.filter.tags', cucumberTagFilter
     }
+
+    def demoDelay = System.getProperty('demo.delay.ms')
+    if (demoDelay != null) {
+        systemProperty 'demo.delay.ms', demoDelay
+    }
+
     finalizedBy 'aggregate'
 }

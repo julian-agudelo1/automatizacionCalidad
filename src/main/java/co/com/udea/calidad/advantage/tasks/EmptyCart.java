@@ -17,9 +17,8 @@ public class EmptyCart {
     }
 
     public static Performable beforeStarting() {
-        return Task.where("{0} vacía el carrito antes del escenario",
+        return Task.where("{0} empties the cart before the scenario",
                 actor -> {
-                    actor.attemptsTo(OpenCart.page());
                     int removals = 0;
                     while (!CartPage.REMOVE_FIRST_ITEM.resolveAllFor(actor).isEmpty()
                             && removals < MAX_REMOVALS) {

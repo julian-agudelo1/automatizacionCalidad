@@ -1,92 +1,61 @@
 package co.com.udea.calidad.advantage.stepdefinitions;
 
+import java.util.Map;
+
+import co.com.udea.calidad.advantage.interactions.WaitForLoader;
 import co.com.udea.calidad.advantage.questions.PaymentBlocked;
-import co.com.udea.calidad.advantage.tasks.AddProductToCart;
 import co.com.udea.calidad.advantage.tasks.ContinueToPayment;
+import co.com.udea.calidad.advantage.tasks.OpenCart;
 import co.com.udea.calidad.advantage.tasks.PayWithTestCard;
 import co.com.udea.calidad.advantage.tasks.StartCheckout;
 import co.com.udea.calidad.advantage.userinterfaces.CheckoutPage;
-import co.com.udea.calidad.advantage.userinterfaces.LoginPage;
-import io.cucumber.java.en.Given;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actors.OnStage;
-import net.serenitybdd.screenplay.actions.Open;
-import net.serenitybdd.screenplay.waits.WaitUntil;
-import co.com.udea.calidad.advantage.tasks.RegisterUser;
-import co.com.udea.calidad.advantage.userinterfaces.RegistrationPage;
-import net.serenitybdd.screenplay.Performable;
-import net.serenitybdd.screenplay.Task;
-import co.com.udea.calidad.advantage.tasks.LoginUser;
 
-import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.containsText;
 import static org.junit.Assert.assertTrue;
-import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 
 public class CheckoutStepDefinitions {
 
-    @Given("que el usuario autenticado tiene un producto en el carrito")
-    public void authenticatedUserHasProductInCart() {
-        String username = actor().recall("username");
-        String password = actor().recall("password");
-
+    @When("the user pays with the following test card")
+    public void payWithTestCard(DataTable cardData) {
+        Map<String, String> card = cardData.asMaps(String.class, String.class).get(0);
         actor().attemptsTo(
-                Open.url("https://www.advantageonlineshopping.com/#/register"),
-                WaitUntil.the(RegistrationPage.REGISTER_BUTTON, isVisible())
-                        .forNoMoreThan(20).seconds(),
-                RegisterUser.withData(username, actor().recall("email"), password),
-                Open.url("https://www.advantageonlineshopping.com/"),
-                WaitUntil.the(LoginPage.USER_MENU, isVisible())
-                        .forNoMoreThan(30).seconds(),
-                loginIfNotAuthenticated(username, password),
-                AddProductToCart.withId("speakers", "20", 1));
-    }
-
-    private Performable loginIfNotAuthenticated(String username, String password) {
-        return Task.where("{0} inicia sesión solo si no quedó autenticado",
-                actor -> {
-                    String shown = LoginPage.USER_MENU.resolveFor(actor).getText();
-                    if (shown == null || !shown.contains(username)) {
-                        actor.attemptsTo(
-                                LoginUser.withCredentials(username, password),
-                                WaitUntil.the(LoginPage.USER_MENU, containsText(username))
-                                        .forNoMoreThan(30).seconds());
-                    }
-                });
-    }
-
-    @When("completa los datos ficticios de pago y confirma la compra")
-    public void submitDemoPayment() {
-        actor().attemptsTo(
+                OpenCart.page(),
                 StartCheckout.fromCart(),
                 ContinueToPayment.withShippingDetails(),
-                PayWithTestCard.completePurchase());
+                PayWithTestCard.completePurchase(
+                        card.get("cardNumber"), card.get("cvv"),
+                        card.get("month"), card.get("year"), card.get("cardholder")));
     }
 
-    @Then("se muestra la confirmación de la compra")
+    @Then("the purchase confirmation is displayed")
     public void purchaseIsConfirmed() {
         String confirmation = CheckoutPage.ORDER_SUCCESS.resolveFor(actor()).getText();
-        assertTrue("No se encontró la confirmación de compra: " + confirmation,
+        assertTrue("The purchase confirmation was not found: " + confirmation,
                 confirmation.contains("Thank you for buying with Advantage"));
     }
 
-    @When("intenta pagar sin completar los datos obligatorios")
+    @When("the user tries to pay without completing the required fields")
     public void attemptPaymentWithMissingFields() {
         actor().attemptsTo(
+                OpenCart.page(),
                 StartCheckout.fromCart(),
                 ContinueToPayment.withShippingDetails(),
-                net.serenitybdd.screenplay.actions.Click.on(CheckoutPage.MASTER_CREDIT));
+                WaitForLoader.toFinish(),
+                Click.on(CheckoutPage.MASTER_CREDIT));
     }
 
-    @Then("el sistema impide continuar con el pago")
+    @Then("the payment is blocked")
     public void paymentIsBlocked() {
-        assertTrue("El botón de pago debe estar deshabilitado sin los datos requeridos",
+        assertTrue("The pay button must be disabled without the required data",
                 PaymentBlocked.untilRequiredFieldsAreCompleted().answeredBy(actor()));
     }
 
     private Actor actor() {
         return OnStage.theActorInTheSpotlight();
     }
-
 }

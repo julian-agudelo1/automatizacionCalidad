@@ -15,10 +15,9 @@ public class StartCheckout {
     }
 
     public static Performable fromCart() {
-        return Task.where("{0} inicia el proceso de pago",
-                OpenCart.page(),
+        return Task.where("{0} starts the checkout",
                 Click.on(CartPage.CHECKOUT_BUTTON),
                 WaitUntil.the(CheckoutPage.SHIPPING_NEXT, isVisible())
-                        .forNoMoreThan(20).seconds());
+                        .forNoMoreThan(60).seconds());
     }
 }

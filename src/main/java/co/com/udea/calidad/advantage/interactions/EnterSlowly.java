@@ -1,28 +1,37 @@
 package co.com.udea.calidad.advantage.interactions;
 
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.serenitybdd.screenplay.Performable;
-import net.serenitybdd.screenplay.Task;
+import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.targets.Target;
 
-public class EnterSlowly {
+import static net.serenitybdd.screenplay.Tasks.instrumented;
+
+public class EnterSlowly implements Interaction {
 
     private static final long PAUSE_BETWEEN_KEYS_MS = 150;
 
-    private EnterSlowly() {
+    private final String value;
+    private final Target target;
+
+    public EnterSlowly(String value, Target target) {
+        this.value = value;
+        this.target = target;
     }
 
-    public static Performable theValue(String value, Target target) {
-        return Task.where("{0} escribe despacio en " + target.getName(),
-                actor -> {
-                    WebElementFacade field = target.resolveFor(actor);
-                    field.click();
-                    field.clear();
-                    for (char character : value.toCharArray()) {
-                        field.sendKeys(String.valueOf(character));
-                        pause();
-                    }
-                });
+    public static EnterSlowly theValue(String value, Target target) {
+        return instrumented(EnterSlowly.class, value, target);
+    }
+
+    @Override
+    public <T extends Actor> void performAs(T actor) {
+        WebElementFacade field = target.resolveFor(actor);
+        field.click();
+        field.clear();
+        for (char character : value.toCharArray()) {
+            field.sendKeys(String.valueOf(character));
+            pause();
+        }
     }
 
     private static void pause() {

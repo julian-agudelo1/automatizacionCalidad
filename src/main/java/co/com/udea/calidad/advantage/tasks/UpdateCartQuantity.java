@@ -18,16 +18,14 @@ public class UpdateCartQuantity {
 
     public static Performable to(int quantity) {
         if (quantity < 1) {
-            throw new IllegalArgumentException("La cantidad debe ser mayor que cero");
+            throw new IllegalArgumentException("The quantity must be greater than zero");
         }
 
-        return Task.where("{0} modifica la cantidad del producto",
-                OpenCart.page(),
+        return Task.where("{0} updates the product quantity",
                 Click.on(CartPage.EDIT_FIRST_ITEM),
                 WaitUntil.the(ProductPage.QUANTITY, isVisible())
-                        .forNoMoreThan(15).seconds(),
+                        .forNoMoreThan(60).seconds(),
                 Enter.theValue(Keys.chord(Keys.CONTROL, "a") + quantity).into(ProductPage.QUANTITY),
-                Click.on(ProductPage.ADD_TO_CART),
-                OpenCart.page());
+                Click.on(ProductPage.ADD_TO_CART));
     }
 }
