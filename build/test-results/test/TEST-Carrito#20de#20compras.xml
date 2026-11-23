@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Carrito de compras" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-23T04:05:31.859Z" hostname="JIMENAG" time="309.082">
+<testsuite name="Carrito de compras" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-23T16:37:32.419Z" hostname="JIMENAG" time="278.385">
   <properties/>
-  <testcase name="CP06 - Agregar un producto al carrito" classname="Carrito de compras" time="56.806"/>
-  <testcase name="CP07 - Agregar productos de categorías diferentes" classname="Carrito de compras" time="58.329"/>
-  <testcase name="CP08 - Modificar la cantidad de un producto" classname="Carrito de compras" time="81.268"/>
-  <testcase name="CP09 - Validar el subtotal y el total" classname="Carrito de compras" time="55.632"/>
-  <testcase name="CP10 - Eliminar un producto del carrito" classname="Carrito de compras" time="57.045"/>
+  <testcase name="CP06 - Agregar un producto al carrito" classname="Carrito de compras" time="49.891"/>
+  <testcase name="CP07 - Agregar productos de categorías diferentes" classname="Carrito de compras" time="56.425"/>
+  <testcase name="CP08 - Modificar la cantidad de un producto" classname="Carrito de compras" time="68.519"/>
+  <testcase name="CP09 - Validar el subtotal y el total" classname="Carrito de compras" time="52.206"/>
+  <testcase name="CP10 - Eliminar un producto del carrito" classname="Carrito de compras" time="51.342"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[[Test worker] INFO  - 
   _____   ___   ___   _____     ___   _____     _     ___   _____   ___   ___  
@@ -17,9 +17,9 @@ CP06 - Agregar un producto al carrito(carrito-de-compras;cp06---agregar-un-produ
 --------------------------------------------------------------------------------
 [Test worker] INFO net.serenitybdd.core.webdriver.driverproviders.ChromeDriverProvider - Starting Chrome driver instance with capabilities:
 [Test worker] INFO net.serenitybdd.core.webdriver.driverproviders.ChromeDriverProvider - Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [\r\n    --start-maximized, \r\n    --disable-popup-blo..., \r\n    --disable-infobars, \r\n    --remote-allow-orig...], extensions: []}}
-nov 22, 2026 11:05:37 P. M. org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+nov 23, 2026 11:37:34 A. M. org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 ADVERTENCIA: Unable to find CDP implementation matching 158
-nov 22, 2026 11:05:37 P. M. org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+nov 23, 2026 11:37:34 A. M. org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
 ADVERTENCIA: Unable to find version of CDP to use for 158.0.8127.37. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.16.1` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 [Test worker] INFO  - ?[92m
   _____   ___   ___   _____     ___     _     ___   ___   ___   ___  

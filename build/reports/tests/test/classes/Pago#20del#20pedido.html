@@ -29,7 +29,7 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">1</div>
+<div class="counter">0</div>
 <p>failures</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">2m50.14s</div>
+<div class="counter">2m9.79s</div>
 <p>duration</p>
 </div>
 </td>
@@ -50,8 +50,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox failures" id="successRate">
-<div class="percent">50%</div>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
 <p>successful</p>
 </div>
 </td>
@@ -61,30 +61,12 @@
 <div class="tab-container">
 <ul class="tabLinks">
 <li>
-<a href="#">Failed tests</a>
-</li>
-<li>
 <a href="#">Tests</a>
 </li>
 <li>
 <a href="#">Standard error</a>
 </li>
 </ul>
-<div class="tab">
-<h2>Failed tests</h2>
-<div class="test">
-<a name="CP12 - Impedir el pago si faltan datos obligatorios"></a>
-<h3 class="failures">CP12 - Impedir el pago si faltan datos obligatorios</h3>
-<span class="code">
-<pre>java.lang.AssertionError: El botón de pago debe estar deshabilitado sin los datos requeridos
-	at org.junit.Assert.fail(Assert.java:89)
-	at org.junit.Assert.assertTrue(Assert.java:42)
-	at co.com.udea.calidad.advantage.stepdefinitions.CheckoutStepDefinitions.paymentIsBlocked(CheckoutStepDefinitions.java:61)
-	at ✽.el sistema impide continuar con el pago(file:///C:/Users/jimen/Downloads/automatizacionCalidad/src/test/resources/features/pago.feature:16)
-</pre>
-</span>
-</div>
-</div>
 <div class="tab">
 <h2>Tests</h2>
 <table>
@@ -97,13 +79,13 @@
 </thead>
 <tr>
 <td class="success">CP11 - Completar la compra con MasterCredit de prueba</td>
-<td class="success">1m42.85s</td>
+<td class="success">1m18.50s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="failures">CP12 - Impedir el pago si faltan datos obligatorios</td>
-<td class="failures">1m7.28s</td>
-<td class="failures">failed</td>
+<td class="success">CP12 - Impedir el pago si faltan datos obligatorios</td>
+<td class="success">51.283s</td>
+<td class="success">passed</td>
 </tr>
 </table>
 </div>
@@ -120,9 +102,9 @@ CP11 - Completar la compra con MasterCredit de prueba(pago-del-pedido;cp11---com
 --------------------------------------------------------------------------------
 [Test worker] INFO net.serenitybdd.core.webdriver.driverproviders.ChromeDriverProvider - Starting Chrome driver instance with capabilities:
 [Test worker] INFO net.serenitybdd.core.webdriver.driverproviders.ChromeDriverProvider - Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [\r\n    --start-maximized, \r\n    --disable-popup-blo..., \r\n    --disable-infobars, \r\n    --remote-allow-orig...], extensions: []}}
-nov 22, 2026 11:11:31 P. M. org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+nov 23, 2026 11:42:53 A. M. org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 ADVERTENCIA: Unable to find CDP implementation matching 158
-nov 22, 2026 11:11:31 P. M. org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+nov 23, 2026 11:42:53 A. M. org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
 ADVERTENCIA: Unable to find version of CDP to use for 158.0.8127.37. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.16.1` where the version (&quot;v86&quot;) matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 [Test worker] INFO  - ?[92m
   _____   ___   ___   _____     ___     _     ___   ___   ___   ___  
@@ -140,16 +122,14 @@ CP11 - Completar la compra con MasterCredit de prueba
 
 CP12 - Impedir el pago si faltan datos obligatorios(pago-del-pedido;cp12---impedir-el-pago-si-faltan-datos-obligatorios)
 --------------------------------------------------------------------------------
-[Test worker] ERROR  - ?[91m
-  _____   ___   ___   _____     ___     _     ___   _      ___   ___  
- |_   _| | __| / __| |_   _|   | __|   /_\   |_ _| | |    | __| |   \ 
-   | |   | _|  \__ \   | |     | _|   / _ \   | |  | |__  | _|  | |) |
-   |_|   |___| |___/   |_|     |_|   /_/ \_\ |___| |____| |___| |___/ 
+[Test worker] INFO  - ?[92m
+  _____   ___   ___   _____     ___     _     ___   ___   ___   ___  
+ |_   _| | __| / __| |_   _|   | _ \   /_\   / __| / __| | __| |   \ 
+   | |   | _|  \__ \   | |     |  _/  / _ \  \__ \ \__ \ | _|  | |) |
+   |_|   |___| |___/   |_|     |_|   /_/ \_\ |___/ |___/ |___| |___/ 
 
 CP12 - Impedir el pago si faltan datos obligatorios
------------------------------------------------------------------------?[0m
-[Test worker] ERROR  - ?[91m    Test failed at step: Then el sistema impide continuar con el pago?[0m
-[Test worker] ERROR  - ?[91m    El botón de pago debe estar deshabilitado sin los datos requeridos?[0m
+----------------------------------------------------------------------?[0m
 </pre>
 </span>
 </div>
@@ -161,7 +141,7 @@ CP12 - Impedir el pago si faltan datos obligatorios
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.0.0</a> at 22/11/2026, 11:15:28 p. m.</p>
+<a href="https://www.gradle.org">Gradle 9.0.0</a> at 23/11/2026, 11:45:39 a. m.</p>
 </div>
 </div>
 </body>

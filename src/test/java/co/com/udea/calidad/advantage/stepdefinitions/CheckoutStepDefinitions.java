@@ -3,8 +3,6 @@ package co.com.udea.calidad.advantage.stepdefinitions;
 import co.com.udea.calidad.advantage.questions.PaymentBlocked;
 import co.com.udea.calidad.advantage.tasks.AddProductToCart;
 import co.com.udea.calidad.advantage.tasks.ContinueToPayment;
-import co.com.udea.calidad.advantage.tasks.EmptyCart;
-import co.com.udea.calidad.advantage.tasks.LoginUser;
 import co.com.udea.calidad.advantage.tasks.PayWithTestCard;
 import co.com.udea.calidad.advantage.tasks.StartCheckout;
 import co.com.udea.calidad.advantage.userinterfaces.CheckoutPage;
@@ -16,21 +14,46 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.waits.WaitUntil;
+import co.com.udea.calidad.advantage.tasks.RegisterUser;
+import co.com.udea.calidad.advantage.userinterfaces.RegistrationPage;
+import net.serenitybdd.screenplay.Performable;
+import net.serenitybdd.screenplay.Task;
+import co.com.udea.calidad.advantage.tasks.LoginUser;
 
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.containsText;
 import static org.junit.Assert.assertTrue;
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 
 public class CheckoutStepDefinitions {
 
     @Given("que el usuario autenticado tiene un producto en el carrito")
     public void authenticatedUserHasProductInCart() {
+        String username = actor().recall("username");
+        String password = actor().recall("password");
+
         actor().attemptsTo(
-                Open.url("https://www.advantageonlineshopping.com/"),
-                EmptyCart.beforeStarting(),
-                LoginUser.withCredentials(registeredUsername(), registeredPassword()),
-                WaitUntil.the(LoginPage.USER_MENU, containsText(registeredUsername()))
+                Open.url("https://www.advantageonlineshopping.com/#/register"),
+                WaitUntil.the(RegistrationPage.REGISTER_BUTTON, isVisible())
                         .forNoMoreThan(20).seconds(),
+                RegisterUser.withData(username, actor().recall("email"), password),
+                Open.url("https://www.advantageonlineshopping.com/"),
+                WaitUntil.the(LoginPage.USER_MENU, isVisible())
+                        .forNoMoreThan(30).seconds(),
+                loginIfNotAuthenticated(username, password),
                 AddProductToCart.withId("speakers", "20", 1));
+    }
+
+    private Performable loginIfNotAuthenticated(String username, String password) {
+        return Task.where("{0} inicia sesión solo si no quedó autenticado",
+                actor -> {
+                    String shown = LoginPage.USER_MENU.resolveFor(actor).getText();
+                    if (shown == null || !shown.contains(username)) {
+                        actor.attemptsTo(
+                                LoginUser.withCredentials(username, password),
+                                WaitUntil.the(LoginPage.USER_MENU, containsText(username))
+                                        .forNoMoreThan(30).seconds());
+                    }
+                });
     }
 
     @When("completa los datos ficticios de pago y confirma la compra")
@@ -66,23 +89,4 @@ public class CheckoutStepDefinitions {
         return OnStage.theActorInTheSpotlight();
     }
 
-    private String registeredUsername() {
-        return requiredRegisteredCredential(
-                "registeredUsername", "ADVANTAGE_TEST_USERNAME");
-    }
-
-    private String registeredPassword() {
-        return requiredRegisteredCredential(
-                "registeredPassword", "ADVANTAGE_TEST_PASSWORD");
-    }
-
-    private String requiredRegisteredCredential(String key, String environmentVariable) {
-        String credential = actor().recall(key);
-        if (credential == null || credential.isBlank()) {
-            throw new IllegalStateException(
-                    "Configura la variable de entorno " + environmentVariable
-                            + " con una cuenta de prueba ya registrada.");
-        }
-        return credential;
-    }
 }

@@ -2,6 +2,7 @@ package co.com.udea.calidad.advantage.tasks;
 
 import java.time.Year;
 
+import co.com.udea.calidad.advantage.interactions.CheckIfUnselected;
 import co.com.udea.calidad.advantage.interactions.WaitForLoader;
 import co.com.udea.calidad.advantage.userinterfaces.CheckoutPage;
 import net.serenitybdd.screenplay.Performable;
@@ -33,11 +34,12 @@ public class PayWithTestCard {
                 SelectFromOptions.byVisibleText("12").from(CheckoutPage.CARD_MONTH),
                 SelectFromOptions.byVisibleText(expiryYear).from(CheckoutPage.CARD_YEAR),
                 Enter.theValue("AUTOMATION QA").into(CheckoutPage.CARDHOLDER),
+                CheckIfUnselected.the(CheckoutPage.SAVE_CARD),
                 WaitUntil.the(CheckoutPage.PAY_NOW, isEnabled())
-                        .forNoMoreThan(80).seconds(),
+                        .forNoMoreThan(100).seconds(),
                 WaitForLoader.toFinish(),
                 Click.on(CheckoutPage.PAY_NOW),
                 WaitUntil.the(CheckoutPage.ORDER_SUCCESS, isVisible())
-                        .forNoMoreThan(180).seconds());
+                        .forNoMoreThan(200).seconds());
     }
 }

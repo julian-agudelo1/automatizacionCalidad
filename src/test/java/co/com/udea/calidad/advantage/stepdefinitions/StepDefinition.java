@@ -26,7 +26,7 @@ public class StepDefinition {
         actor().attemptsTo(
                 Open.url("https://www.advantageonlineshopping.com/#/register"),
                 WaitUntil.the(RegistrationPage.REGISTER_BUTTON, isVisible())
-                        .forNoMoreThan(20).seconds());
+                        .forNoMoreThan(90).seconds());
     }
 
     @When("completa el formulario de registro con datos válidos")

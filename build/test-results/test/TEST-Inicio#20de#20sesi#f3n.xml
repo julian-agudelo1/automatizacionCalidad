@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Inicio de sesión" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-23T04:10:40.945Z" hostname="JIMENAG" time="48.788">
+<testsuite name="Inicio de sesión" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-23T16:42:10.806Z" hostname="JIMENAG" time="41.949">
   <properties/>
-  <testcase name="CP04 - Iniciar sesión con credenciales válidas" classname="Inicio de sesión" time="26.349"/>
-  <testcase name="CP05 - Rechazar una contraseña incorrecta" classname="Inicio de sesión" time="22.439"/>
+  <testcase name="CP04 - Iniciar sesión con credenciales válidas" classname="Inicio de sesión" time="23.187"/>
+  <testcase name="CP05 - Rechazar una contraseña incorrecta" classname="Inicio de sesión" time="18.762"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[[Test worker] INFO  - 
   _____   ___   ___   _____     ___   _____     _     ___   _____   ___   ___  
@@ -14,9 +14,9 @@ CP04 - Iniciar sesión con credenciales válidas(inicio-de-sesión;cp04---inicia
 --------------------------------------------------------------------------------
 [Test worker] INFO net.serenitybdd.core.webdriver.driverproviders.ChromeDriverProvider - Starting Chrome driver instance with capabilities:
 [Test worker] INFO net.serenitybdd.core.webdriver.driverproviders.ChromeDriverProvider - Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [\r\n    --start-maximized, \r\n    --disable-popup-blo..., \r\n    --disable-infobars, \r\n    --remote-allow-orig...], extensions: []}}
-nov 22, 2026 11:10:43 P. M. org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+nov 23, 2026 11:42:11 A. M. org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 ADVERTENCIA: Unable to find CDP implementation matching 158
-nov 22, 2026 11:10:43 P. M. org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+nov 23, 2026 11:42:11 A. M. org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
 ADVERTENCIA: Unable to find version of CDP to use for 158.0.8127.37. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.16.1` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 [Test worker] INFO  - ?[92m
   _____   ___   ___   _____     ___     _     ___   ___   ___   ___  
