@@ -29,7 +29,7 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">0</div>
+<div class="counter">3</div>
 <p>failures</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">36.859s</div>
+<div class="counter">1m7.64s</div>
 <p>duration</p>
 </div>
 </td>
@@ -50,8 +50,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox success" id="successRate">
-<div class="percent">100%</div>
+<div class="infoBox failures" id="successRate">
+<div class="percent">0%</div>
 <p>successful</p>
 </div>
 </td>
@@ -61,12 +61,149 @@
 <div class="tab-container">
 <ul class="tabLinks">
 <li>
+<a href="#">Failed tests</a>
+</li>
+<li>
 <a href="#">Tests</a>
 </li>
 <li>
 <a href="#">Standard error</a>
 </li>
 </ul>
+<div class="tab">
+<h2>Failed tests</h2>
+<div class="test">
+<a name="CP01 - Registrar un usuario con datos válidos"></a>
+<h3 class="failures">CP01 - Registrar un usuario con datos válidos</h3>
+<span class="code">
+<pre>org.openqa.selenium.NoSuchSessionException: invalid session id: session deleted as the browser has closed the connection
+from disconnected: Unable to receive message from renderer
+  (Session info: chrome=158.0.8127.37)
+Build info: version: '4.16.1', revision: '9b4c83354e'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.8'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [66b62f074dee5d8bfaa93f4026c441ee, findElements {using=id, value=registerSuccessCover}]
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 158.0.8127.37, chrome: {chromedriverVersion: 158.0.8127.36 (14d6f648e8cd..., userDataDir: C:\Users\jimen\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:32426}, goog:processID: 15256, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:32426/devtoo..., se:cdpVersion: 158.0.8127.37, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10...., webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 66b62f074dee5d8bfaa93f4026c441ee
+	at java.base@21.0.8/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base@21.0.8/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+	at java.base@21.0.8/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at app//org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+	at app//org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+	at app//org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at app//org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
+	at app//org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:200)
+	at app//org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:175)
+	at app//org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:523)
+	at app//org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElements(ElementLocation.java:182)
+	at app//org.openqa.selenium.remote.ElementLocation.findElements(ElementLocation.java:103)
+	at app//org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:373)
+	at app//org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:367)
+	at app//net.thucydides.core.webdriver.WebDriverFacade.findElements(WebDriverFacade.java:242)
+	at app//net.serenitybdd.core.pages.PageObject.lambda$findAll$2(PageObject.java:1276)
+	at app//net.serenitybdd.core.pages.FindAllWithRetry.find(FindAllWithRetry.java:19)
+	at app//net.serenitybdd.core.pages.PageObject.findAllWithRetry(PageObject.java:1499)
+	at app//net.serenitybdd.core.pages.PageObject.findAll(PageObject.java:1274)
+	at app//net.serenitybdd.screenplay.targets.ByTarget.resolveAllFor(ByTarget.java:56)
+	at app//net.serenitybdd.screenplay.targets.Target.resolveAllFor(Target.java:59)
+	at app//co.com.udea.calidad.advantage.stepdefinitions.StepDefinition.accountIsRegistered(StepDefinition.java:58)
+	at ✽.la cuenta queda registrada correctamente(file:///C:/Users/jimen/Downloads/automatizacionCalidad/src/test/resources/features/registro_usuario.feature:10)
+</pre>
+</span>
+</div>
+<div class="test">
+<a name="CP02 - Rechazar un correo inválido"></a>
+<h3 class="failures">CP02 - Rechazar un correo inválido</h3>
+<span class="code">
+<pre>org.openqa.selenium.NoSuchSessionException: invalid session id
+Build info: version: '4.16.1', revision: '9b4c83354e'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.8'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [66b62f074dee5d8bfaa93f4026c441ee, get {url=https://www.advantageonlineshopping.com/#/register}]
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 158.0.8127.37, chrome: {chromedriverVersion: 158.0.8127.36 (14d6f648e8cd..., userDataDir: C:\Users\jimen\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:32426}, goog:processID: 15256, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:32426/devtoo..., se:cdpVersion: 158.0.8127.37, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10...., webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 66b62f074dee5d8bfaa93f4026c441ee
+	at java.base@21.0.8/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base@21.0.8/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+	at java.base@21.0.8/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at app//org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+	at app//org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+	at app//org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at app//org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
+	at app//org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:200)
+	at app//org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:175)
+	at app//org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:523)
+	at app//org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:305)
+	at app//net.thucydides.core.webdriver.WebDriverFacade.get(WebDriverFacade.java:209)
+	at app//net.serenitybdd.core.pages.PageObject.openPageAtUrl(PageObject.java:982)
+	at app//net.serenitybdd.core.pages.PageObject.openUrl(PageObject.java:928)
+	at app//net.serenitybdd.screenplay.actions.OpenUrl.performAs(OpenUrl.java:18)
+	at app//net.serenitybdd.screenplay.actions.OpenUrl$ByteBuddy$guvNRG4n.performAs$accessor$7B48Rbg7(Unknown Source)
+	at java.base@21.0.8/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base@21.0.8/java.lang.reflect.Method.invoke(Method.java:580)
+	at app//net.thucydides.core.steps.StepInterceptor.invokeMethod(StepInterceptor.java:524)
+	at app//net.thucydides.core.steps.StepInterceptor.executeTestStepMethod(StepInterceptor.java:504)
+	at app//net.thucydides.core.steps.StepInterceptor.runTestStep(StepInterceptor.java:476)
+	at app//net.thucydides.core.steps.StepInterceptor.runOrSkipMethod(StepInterceptor.java:218)
+	at app//net.thucydides.core.steps.StepInterceptor.testStepResult(StepInterceptor.java:205)
+	at app//net.thucydides.core.steps.StepInterceptor.intercept(StepInterceptor.java:93)
+	at app//net.thucydides.core.steps.ProxyConfiguration$InterceptorDispatcher.intercept(ProxyConfiguration.java:51)
+	at app//net.serenitybdd.screenplay.actions.OpenUrl$ByteBuddy$guvNRG4n.performAs(Unknown Source)
+	at app//net.serenitybdd.screenplay.Actor.performTask(Actor.java:299)
+	at app//net.serenitybdd.screenplay.Actor.perform(Actor.java:274)
+	at app//net.serenitybdd.screenplay.Actor.attemptsTo(Actor.java:215)
+	at app//net.serenitybdd.screenplay.Actor.attemptsTo(Actor.java:222)
+	at app//co.com.udea.calidad.advantage.stepdefinitions.StepDefinition.openRegistrationForm(StepDefinition.java:26)
+	at ✽.que el usuario abre el formulario de registro(file:///C:/Users/jimen/Downloads/automatizacionCalidad/src/test/resources/features/registro_usuario.feature:14)
+</pre>
+</span>
+</div>
+<div class="test">
+<a name="CP03 - Impedir el registro sin campos obligatorios"></a>
+<h3 class="failures">CP03 - Impedir el registro sin campos obligatorios</h3>
+<span class="code">
+<pre>org.openqa.selenium.NoSuchSessionException: invalid session id
+Build info: version: '4.16.1', revision: '9b4c83354e'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.8'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [66b62f074dee5d8bfaa93f4026c441ee, get {url=https://www.advantageonlineshopping.com/#/register}]
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 158.0.8127.37, chrome: {chromedriverVersion: 158.0.8127.36 (14d6f648e8cd..., userDataDir: C:\Users\jimen\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:32426}, goog:processID: 15256, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:32426/devtoo..., se:cdpVersion: 158.0.8127.37, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, userAgent: Mozilla/5.0 (Windows NT 10...., webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 66b62f074dee5d8bfaa93f4026c441ee
+	at java.base@21.0.8/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base@21.0.8/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+	at java.base@21.0.8/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at app//org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+	at app//org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+	at app//org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at app//org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
+	at app//org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:200)
+	at app//org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:175)
+	at app//org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:523)
+	at app//org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:305)
+	at app//net.thucydides.core.webdriver.WebDriverFacade.get(WebDriverFacade.java:209)
+	at app//net.serenitybdd.core.pages.PageObject.openPageAtUrl(PageObject.java:982)
+	at app//net.serenitybdd.core.pages.PageObject.openUrl(PageObject.java:928)
+	at app//net.serenitybdd.screenplay.actions.OpenUrl.performAs(OpenUrl.java:18)
+	at app//net.serenitybdd.screenplay.actions.OpenUrl$ByteBuddy$guvNRG4n.performAs$accessor$7B48Rbg7(Unknown Source)
+	at java.base@21.0.8/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base@21.0.8/java.lang.reflect.Method.invoke(Method.java:580)
+	at app//net.thucydides.core.steps.StepInterceptor.invokeMethod(StepInterceptor.java:524)
+	at app//net.thucydides.core.steps.StepInterceptor.executeTestStepMethod(StepInterceptor.java:504)
+	at app//net.thucydides.core.steps.StepInterceptor.runTestStep(StepInterceptor.java:476)
+	at app//net.thucydides.core.steps.StepInterceptor.runOrSkipMethod(StepInterceptor.java:218)
+	at app//net.thucydides.core.steps.StepInterceptor.testStepResult(StepInterceptor.java:205)
+	at app//net.thucydides.core.steps.StepInterceptor.intercept(StepInterceptor.java:93)
+	at app//net.thucydides.core.steps.ProxyConfiguration$InterceptorDispatcher.intercept(ProxyConfiguration.java:51)
+	at app//net.serenitybdd.screenplay.actions.OpenUrl$ByteBuddy$guvNRG4n.performAs(Unknown Source)
+	at app//net.serenitybdd.screenplay.Actor.performTask(Actor.java:299)
+	at app//net.serenitybdd.screenplay.Actor.perform(Actor.java:274)
+	at app//net.serenitybdd.screenplay.Actor.attemptsTo(Actor.java:215)
+	at app//net.serenitybdd.screenplay.Actor.attemptsTo(Actor.java:222)
+	at app//co.com.udea.calidad.advantage.stepdefinitions.StepDefinition.openRegistrationForm(StepDefinition.java:26)
+	at ✽.que el usuario abre el formulario de registro(file:///C:/Users/jimen/Downloads/automatizacionCalidad/src/test/resources/features/registro_usuario.feature:20)
+</pre>
+</span>
+</div>
+</div>
 <div class="tab">
 <h2>Tests</h2>
 <table>
@@ -78,19 +215,19 @@
 </tr>
 </thead>
 <tr>
-<td class="success">CP01 - Registrar un usuario con datos válidos</td>
-<td class="success">16.581s</td>
-<td class="success">passed</td>
+<td class="failures">CP01 - Registrar un usuario con datos válidos</td>
+<td class="failures">1m7.37s</td>
+<td class="failures">failed</td>
 </tr>
 <tr>
-<td class="success">CP02 - Rechazar un correo inválido</td>
-<td class="success">11.833s</td>
-<td class="success">passed</td>
+<td class="failures">CP02 - Rechazar un correo inválido</td>
+<td class="failures">0.149s</td>
+<td class="failures">failed</td>
 </tr>
 <tr>
-<td class="success">CP03 - Impedir el registro sin campos obligatorios</td>
-<td class="success">8.445s</td>
-<td class="success">passed</td>
+<td class="failures">CP03 - Impedir el registro sin campos obligatorios</td>
+<td class="failures">0.119s</td>
+<td class="failures">failed</td>
 </tr>
 </table>
 </div>
@@ -106,19 +243,40 @@
 CP01 - Registrar un usuario con datos válidos(registro-de-usuarios;cp01---registrar-un-usuario-con-datos-válidos)
 --------------------------------------------------------------------------------
 [Test worker] INFO net.serenitybdd.core.webdriver.driverproviders.ChromeDriverProvider - Starting Chrome driver instance with capabilities:
-[Test worker] INFO net.serenitybdd.core.webdriver.driverproviders.ChromeDriverProvider - Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [\n    --start-maximized, \n    --disable-popup-blocking, \n    --disable-infobars, \n    --remote-allow-origin...], extensions: []}}
-nov 18, 2026 5:57:13 P. M. org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 158
-nov 18, 2026 5:57:13 P. M. org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 158.0.8127.37. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.16.1` where the version (&quot;v86&quot;) matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-[Test worker] INFO  - ?[92m
-  _____   ___   ___   _____     ___     _     ___   ___   ___   ___  
- |_   _| | __| / __| |_   _|   | _ \   /_\   / __| / __| | __| |   \ 
-   | |   | _|  \__ \   | |     |  _/  / _ \  \__ \ \__ \ | _|  | |) |
-   |_|   |___| |___/   |_|     |_|   /_/ \_\ |___/ |___/ |___| |___/ 
+[Test worker] INFO net.serenitybdd.core.webdriver.driverproviders.ChromeDriverProvider - Capabilities {acceptInsecureCerts: true, browserName: chrome, goog:chromeOptions: {args: [\r\n    --start-maximized, \r\n    --disable-popup-blo..., \r\n    --disable-infobars, \r\n    --remote-allow-orig...], extensions: []}}
+nov 22, 2026 11:14:22 P. M. org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+ADVERTENCIA: Unable to find CDP implementation matching 158
+nov 22, 2026 11:14:22 P. M. org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+ADVERTENCIA: Unable to find version of CDP to use for 158.0.8127.37. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.16.1` where the version (&quot;v86&quot;) matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+nov 22, 2026 11:15:27 P. M. org.openqa.selenium.remote.http.WebSocket$Listener onError
+ADVERTENCIA: Connection reset
+java.net.SocketException: Connection reset
+	at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:401)
+	at java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:434)
+	at java.net.http/jdk.internal.net.http.SocketTube.readAvailable(SocketTube.java:1178)
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.read(SocketTube.java:841)
+	at java.net.http/jdk.internal.net.http.SocketTube$SocketFlowTask.run(SocketTube.java:181)
+	at java.net.http/jdk.internal.net.http.common.SequentialScheduler$SchedulableTask.run(SequentialScheduler.java:207)
+	at java.net.http/jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:280)
+	at java.net.http/jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:233)
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.signalReadable(SocketTube.java:782)
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$ReadEvent.signalEvent(SocketTube.java:965)
+	at java.net.http/jdk.internal.net.http.SocketTube$SocketFlowEvent.handle(SocketTube.java:253)
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.handleEvent(HttpClientImpl.java:1477)
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.lambda$run$3(HttpClientImpl.java:1422)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:1422)
+
+[Test worker] ERROR  - ?[91m
+  _____   ___   ___   _____     ___   ___   ___    ___    ___ 
+ |_   _| | __| / __| |_   _|   | __| | _ \ | _ \  / _ \  | _ \
+   | |   | _|  \__ \   | |     | _|  |   / |   / | (_) | |   /
+   |_|   |___| |___/   |_|     |___| |_|_\ |_|_\  \___/  |_|_\
 
 CP01 - Registrar un usuario con datos válidos
-----------------------------------------------------------------------?[0m
+---------------------------------------------------------------?[0m
+[Test worker] ERROR  - ?[91m    Test failed at step: Then la cuenta queda registrada correctamente?[0m
+[Test worker] ERROR  - ?[91m    invalid session id: session deleted as the browser has closed the connection?[0m
 [Test worker] INFO  - 
   _____   ___   ___   _____     ___   _____     _     ___   _____   ___   ___  
  |_   _| | __| / __| |_   _|   / __| |_   _|   /_\   | _ \ |_   _| | __| |   \ 
@@ -127,14 +285,16 @@ CP01 - Registrar un usuario con datos válidos
 
 CP02 - Rechazar un correo inválido(registro-de-usuarios;cp02---rechazar-un-correo-inválido)
 --------------------------------------------------------------------------------
-[Test worker] INFO  - ?[92m
-  _____   ___   ___   _____     ___     _     ___   ___   ___   ___  
- |_   _| | __| / __| |_   _|   | _ \   /_\   / __| / __| | __| |   \ 
-   | |   | _|  \__ \   | |     |  _/  / _ \  \__ \ \__ \ | _|  | |) |
-   |_|   |___| |___/   |_|     |_|   /_/ \_\ |___/ |___/ |___| |___/ 
+[Test worker] ERROR  - ?[91m
+  _____   ___   ___   _____     ___   ___   ___    ___    ___ 
+ |_   _| | __| / __| |_   _|   | __| | _ \ | _ \  / _ \  | _ \
+   | |   | _|  \__ \   | |     | _|  |   / |   / | (_) | |   /
+   |_|   |___| |___/   |_|     |___| |_|_\ |_|_\  \___/  |_|_\
 
 CP02 - Rechazar un correo inválido
-----------------------------------------------------------------------?[0m
+---------------------------------------------------------------?[0m
+[Test worker] ERROR  - ?[91m    Test failed at step: usuario opens the browser at https://www.advantageonlineshopping.com/#/register?[0m
+[Test worker] ERROR  - ?[91m    invalid session id?[0m
 [Test worker] INFO  - 
   _____   ___   ___   _____     ___   _____     _     ___   _____   ___   ___  
  |_   _| | __| / __| |_   _|   / __| |_   _|   /_\   | _ \ |_   _| | __| |   \ 
@@ -143,14 +303,16 @@ CP02 - Rechazar un correo inválido
 
 CP03 - Impedir el registro sin campos obligatorios(registro-de-usuarios;cp03---impedir-el-registro-sin-campos-obligatorios)
 --------------------------------------------------------------------------------
-[Test worker] INFO  - ?[92m
-  _____   ___   ___   _____     ___     _     ___   ___   ___   ___  
- |_   _| | __| / __| |_   _|   | _ \   /_\   / __| / __| | __| |   \ 
-   | |   | _|  \__ \   | |     |  _/  / _ \  \__ \ \__ \ | _|  | |) |
-   |_|   |___| |___/   |_|     |_|   /_/ \_\ |___/ |___/ |___| |___/ 
+[Test worker] ERROR  - ?[91m
+  _____   ___   ___   _____     ___   ___   ___    ___    ___ 
+ |_   _| | __| / __| |_   _|   | __| | _ \ | _ \  / _ \  | _ \
+   | |   | _|  \__ \   | |     | _|  |   / |   / | (_) | |   /
+   |_|   |___| |___/   |_|     |___| |_|_\ |_|_\  \___/  |_|_\
 
 CP03 - Impedir el registro sin campos obligatorios
-----------------------------------------------------------------------?[0m
+---------------------------------------------------------------?[0m
+[Test worker] ERROR  - ?[91m    Test failed at step: usuario opens the browser at https://www.advantageonlineshopping.com/#/register?[0m
+[Test worker] ERROR  - ?[91m    invalid session id?[0m
 </pre>
 </span>
 </div>
@@ -162,7 +324,7 @@ CP03 - Impedir el registro sin campos obligatorios
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 8.14.3</a> at 18/11/2026, 5:57:48 p. m.</p>
+<a href="https://www.gradle.org">Gradle 9.0.0</a> at 22/11/2026, 11:15:28 p. m.</p>
 </div>
 </div>
 </body>

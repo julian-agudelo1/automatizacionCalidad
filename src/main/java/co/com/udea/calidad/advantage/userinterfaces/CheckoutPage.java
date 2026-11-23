@@ -14,7 +14,7 @@ public class CheckoutPage {
 
     public static final Target SHIPPING_NEXT =
             Target.the("continuar desde los datos de envío")
-                    .located(By.cssSelector("#orderPayment button.nextBtn"));
+                    .located(By.id("next_btn"));
 
     public static final Target PAYMENT_METHOD =
             Target.the("selección del medio de pago")

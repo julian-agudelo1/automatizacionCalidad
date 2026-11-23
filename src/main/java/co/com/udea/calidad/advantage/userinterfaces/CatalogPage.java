@@ -8,6 +8,10 @@ public class CatalogPage {
     private CatalogPage() {
     }
 
+    public static final Target HOME_LOGO =
+            Target.the("logo de la tienda")
+                    .located(By.cssSelector("header .logo a"));  // el selector sale del inspector
+
     public static final Target SPEAKERS =
             Target.the("categoría de parlantes").located(By.id("speakersTxt"));
 

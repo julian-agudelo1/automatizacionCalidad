@@ -1,5 +1,6 @@
 package co.com.udea.calidad.advantage.tasks;
 
+import co.com.udea.calidad.advantage.interactions.WaitForLoader;
 import co.com.udea.calidad.advantage.userinterfaces.CartPage;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Task;
@@ -10,6 +11,8 @@ import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisi
 
 public class EmptyCart {
 
+    private static final int MAX_REMOVALS = 20;
+
     private EmptyCart() {
     }
 
@@ -17,11 +20,16 @@ public class EmptyCart {
         return Task.where("{0} vacía el carrito antes del escenario",
                 actor -> {
                     actor.attemptsTo(OpenCart.page());
-                    while (!CartPage.REMOVE_FIRST_ITEM.resolveAllFor(actor).isEmpty()) {
-                        actor.attemptsTo(Click.on(CartPage.REMOVE_FIRST_ITEM));
+                    int removals = 0;
+                    while (!CartPage.REMOVE_FIRST_ITEM.resolveAllFor(actor).isEmpty()
+                            && removals < MAX_REMOVALS) {
+                        actor.attemptsTo(
+                                Click.on(CartPage.REMOVE_FIRST_ITEM),
+                                WaitForLoader.toFinish());
+                        removals++;
                     }
                     actor.attemptsTo(WaitUntil.the(CartPage.EMPTY_CART_MESSAGE, isVisible())
-                            .forNoMoreThan(10).seconds());
+                            .forNoMoreThan(30).seconds());
                 });
     }
 }

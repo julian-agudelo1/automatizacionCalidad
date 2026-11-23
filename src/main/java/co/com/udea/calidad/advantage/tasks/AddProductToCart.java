@@ -6,7 +6,6 @@ import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Enter;
-import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 import org.openqa.selenium.Keys;
 
@@ -23,15 +22,17 @@ public class AddProductToCart {
         }
 
         return Task.where("{0} agrega un producto al carrito",
-                Open.url("https://www.advantageonlineshopping.com/"),
+                WaitUntil.the(CatalogPage.HOME_LOGO, isVisible())
+                        .forNoMoreThan(30).seconds(),
+                Click.on(CatalogPage.HOME_LOGO),
                 WaitUntil.the(CatalogPage.category(category), isVisible())
-                        .forNoMoreThan(15).seconds(),
+                        .forNoMoreThan(60).seconds(),
                 Click.on(CatalogPage.category(category)),
                 WaitUntil.the(ProductPage.productCard(productId), isVisible())
-                        .forNoMoreThan(15).seconds(),
+                        .forNoMoreThan(180).seconds(),
                 Click.on(ProductPage.productCard(productId)),
                 WaitUntil.the(ProductPage.QUANTITY, isVisible())
-                        .forNoMoreThan(15).seconds(),
+                        .forNoMoreThan(90).seconds(),
                 Enter.theValue(Keys.chord(Keys.CONTROL, "a") + quantity).into(ProductPage.QUANTITY),
                 Click.on(ProductPage.ADD_TO_CART));
     }
