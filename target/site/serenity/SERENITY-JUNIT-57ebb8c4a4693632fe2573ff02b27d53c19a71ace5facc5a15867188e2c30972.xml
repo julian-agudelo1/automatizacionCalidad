@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><testsuite errors="0" failures="0" name="Pago del pedido" skipped="0" tests="2" time="2.55" timestamp="2026-11-23 11:42:52"><testcase name="CP11 - Completar la compra con MasterCredit de prueba"/><testcase name="CP12 - Impedir el pago si faltan datos obligatorios"/></testsuite>
